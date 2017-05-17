@@ -76,7 +76,15 @@ For more details, see:
 
 ### On Mac 
 
-[] Add Section
+Copy your key to ~/.ssh 
+chmod it to 600
+to ssh to the instance:
+
+```sh
+ssh -i ~/.ssh/<keyname> centos@<aws hostname>
+```
+
+Or, set up your ssh [config](https://linux.die.net/man/5/ssh_config) file.
 
 For more details, see:
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
@@ -114,9 +122,17 @@ Select "Configure Security Groups"
   Check 'Select an exiting security group'
   Select 'Intern Dev SG'
 Select 'Review and Launch'
-    Assign a security group: Select an existing security group
-      Check box next to Catbert Dev Workstation security group
-  After clicking button to launch instance, choose your key pair and acknowledge
+Review your entries
+Select 'Launch'
+Select your key pair
+
+### VERIFY
+
+After the instance launches, ssh to it:
+
+#### MAC
+
+ssh -vv -i <key> centos@<hostname>
 
 CREATE ELASTIC IP
   In AWS console, go to EC2 console
