@@ -1,0 +1,119 @@
+#cloud-config
+output : { all : '| tee -a /var/log/cloud-init-output.log' }
+
+# Update all packages on first boot
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+# Add yum repositories
+yum_repos:
+    google-chrome:
+        name: google-chrome
+        baseurl: http://dl.google.com/linux/chrome/rpm/stable/$basearch
+        enabled: true
+        gpgcheck: true
+        gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+
+# Install additional packages on first boot
+packages:
+ - epel-release
+ - bash-completion
+ - lsof
+ - net-tools
+ - wget
+ - vim
+ - gvim
+ - git
+ - gitk
+ - bzip2
+ - make
+ - automake
+ - gcc
+ - gcc-c++
+ - kernel-devel
+ - google-chrome-stable
+ - tigervnc-server
+ - firewalld
+ - ruby
+
+# run commands
+runcmd:
+ - [ sh, -c, echo "== Updating everything installed so far" ]
+ - yum update -y
+ - [ sh, -c, echo "== Setting local time zone" ]
+ - timedatectl set-timezone America/New_York
+ - [ sh, -c, echo "== Installing AWS CLI" ]
+ - mkdir -p /usr/local/src/tarballs
+ - cd /usr/local/src/tarballs
+ - curl -O https://bootstrap.pypa.io/get-pip.py
+ - chown centos:centos get-pip.py
+ - python get-pip.py
+ - pip --version
+ - pip install awscli
+ - aws --version
+ - [ sh, -c, echo "== Configuring AWS CLI for centos user" ]
+ - mkdir -p ~centos/.aws
+ - touch ~centos/.aws/config
+ - echo "[default]" >> ~centos/.aws/config
+ - echo "output = json" >> ~centos/.aws/config
+ - echo "region = us-east-1" >> ~centos/.aws/config
+ - chown centos:centos ~centos/.aws
+ - chown centos:centos ~centos/.aws/config
+ - [ sh, -c, echo "== Installing Atom" ]
+ - mkdir -p /usr/local/src/tarballs
+ - cd /usr/local/src/tarballs
+ - wget https://github.com/atom/atom/releases/download/v1.7.3/atom.x86_64.rpm
+ - chown centos:centos atom.x86_64.rpm
+ - yum localinstall -y atom.x86_64.rpm
+ - [ sh, -c, echo "== Installing Node.js 4.x" ]
+ - curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
+ - yum install -y nodejs
+ - node --version
+ - npm --version
+ - [ sh, -c, echo "== Installing global Node.js modules" ]
+ - npm install -g bower
+ - npm install -g grunt-cli
+ - npm install -g istanbul
+ - npm install -g jasmine
+ - npm install -g karma-cli
+ - npm install -g serverless
+ - [ sh, -c, echo "== Installing XRDP" ]
+ - yum install -y xrdp
+ - chcon -t bin_t /usr/sbin/xrdp
+ - chcon -t bin_t /usr/sbin/xrdp-sesman
+ - [ sh, -c, echo "== Installing Firefox" ]
+ - yum install -y firefox
+ - firefox --version
+ - [ sh, -c, echo "== Installing Xfce Desktop Environment" ]
+ - yum groupinstall -y "Xfce"
+ - [ sh, -c, echo "== Creating .xinitrc" ]
+ - echo "exec /usr/bin/xfce4-session" >> /home/centos/.xinitrc
+ - chown centos:centos /home/centos/.xinitrc
+ - [ sh, -c, echo "== Creating .Xclients" ]
+ - echo "startxfce4" > /home/centos/.Xclients
+ - chown centos:centos /home/centos/.Xclients
+ - chmod +x /home/centos/.Xclients
+ - [ sh, -c, echo "== Backing up /etc/ssh/sshd_config" ]
+ - cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+ - [ sh, -c, echo "== Enabling PasswordAuthentication" ]
+ - sed -i -e '/^PasswordAuthentication no/s/^.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+ - [ sh, -c, echo "== Restarting SSH daemon" ]
+ - systemctl restart sshd
+ - [ sh, -c, echo "== Starting XRDP daemon" ]
+ - systemctl start xrdp.service
+ - systemctl enable xrdp.service
+ - [ sh, -c, echo "== Copying /usr/lib/systemd/system/vncserver@.service" ]
+ - cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
+ - [ sh, -c, echo "== Setting USER in /etc/systemd/system/vncserver@.service" ]
+ - sed -i -e 's/<USER>/centos/' /etc/systemd/system/vncserver@.service
+ - systemctl daemon-reload
+ - [ sh, -c, echo "== Configuring iptables firewall" ]
+ - systemctl start firewalld.service
+ - systemctl enable firewalld.service
+ - firewall-cmd --permanent --zone=public --add-port=3389/tcp
+ - firewall-cmd --reload
+ - firewall-cmd --list-all
+ - [ sh, -c, echo "==== NOTE -- Need to interactively change passwd and vncpasswd before VNC server service can be started" ]
+
+final_message: "The system is finally up, after $UPTIME seconds"

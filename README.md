@@ -4,12 +4,12 @@
 1. [Create Security Group](#create security group)
 1. [Update Security Group](#update security group)
 
-## CREATE USER
+## Create User
 
 If a user does not already exist for you, get an administrator to create one
 for you with associated IAM policies that allow you to launch EC2 instances
 
-## CREATE SECURITY GROUP
+## Create Security Group
 
 In AWS console, go to EC2 console
 
@@ -32,7 +32,7 @@ Press 'Create Security Group' button
 
 *Note: if you are behind a router, the inbound will CIDR will have to be that of your router.*
 
-## UPDATE SECURITY GROUP
+## Update Security Group
 
 If the Security Group does exist, add the CIDR for your laptop
 
@@ -78,13 +78,35 @@ For more details, see:
 
 Copy your key to ~/.ssh 
 chmod it to 600
-to ssh to the instance:
+
+
+#### via safari
+
+Open Safari
+
+in the url type:
+
+vnc://<ec2 instance hostname>
+
+(haven't gotten above to work yet)
+
+#### to ssh to the instance:
 
 ```sh
 ssh -i ~/.ssh/<keyname> centos@<aws hostname>
 ```
 
 Or, set up your ssh [config](https://linux.die.net/man/5/ssh_config) file.
+
+```
+Host ec2dev
+  Hostname <hostname>
+  User centos 
+  IdentityFile /Users/<user>/.ssh/<user>.pem 
+  ForwardX11 yes
+  ForwardX11Trusted yes
+
+```
 
 For more details, see:
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
