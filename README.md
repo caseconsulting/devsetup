@@ -1,8 +1,8 @@
 # AWS CONFIGURATION
 
 1. [Create User](#create_user)
-1. [Create Security Group](#create security group)
-1. [Update Security Group](#update security group)
+1. [Create Security Group](#create_security_group)
+1. [Update Security Group](#update_security_group)
 
 ## Create User
 
