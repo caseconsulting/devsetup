@@ -112,7 +112,7 @@ runcmd:
  - [ sh, -c, echo "== Configuring iptables firewall" ]
  - systemctl start firewalld.service
  - systemctl enable firewalld.service
- - firewall-cmd --permanent --zone=public --add-port=3389/tcp
+ - firewall-offline-cmd --zone=public --add-port=3389/tcp
  - firewall-cmd --reload
  - firewall-cmd --list-all
  - [ sh, -c, echo "==== NOTE -- Need to interactively change passwd and vncpasswd before VNC server service can be started" ]
