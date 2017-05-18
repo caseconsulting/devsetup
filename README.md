@@ -25,7 +25,7 @@ If 'Intern Dev Workstation Security Group' exists, then skip to next section
 ```
 Press 'Create Security Group' button
   Security group name: 'Intern Dev SG'
-  Description: 'Intern Dev SG' 
+  Description: 'Intern Dev SG'
   VPC: <Leave default>
   Security group rules:
     Inbound:
@@ -56,8 +56,8 @@ Select 'Intern Dev Security Group' button
 In AWS console, go to EC2 console
 Click on Key Pairs
 If a key pair already exists for you, then skip to next section
-Create a new key pair with your name (e.g., mfrank_keypair)
-The private key (e.g., mfrank_keypair.pem) will automatically download to your workstation
+Create a new key pair with your name (e.g., <yourname>_keypair)
+The private key (e.g., <yourname>_keypair.pem) will automatically download to your workstation
 
 ## Setup Client
 
@@ -67,23 +67,23 @@ Open PuTTYgen (e.g., C:\Program Files (x86)\PuTTY\puttygen.exe)
 Load your private key PEM file (HINT: Change file viewer to show All Files)
 Enter and confirm Key passphrase (optional)
 Under Type of key to generate, select SSH-2 RSA
-Click on Save private key and save private key file (e.g., mfrank_keypair.ppk)
+Click on Save private key and save private key file (e.g., <yourname>_keypair.ppk)
 Exit PuTTYgen
 Open Pageant (e.g., "C:\Program Files (x86)\PuTTY\pageant.exe")
 Click on Add Key
-Select private key file (e.g., mfrank_keypair.ppk)
+Select private key file (e.g., <yourname>_keypair.ppk)
 Close Pageant (it is still running in background)
 To run Pageant when you login to Windows:
   Create Pageant shortcut in Windows Startup folder
   Change shortcut target to include private key, like the following:
-    "C:\Program Files (x86)\PuTTY\pageant.exe" C:\Users\Administrator\credentials\mfrank_keypair.ppk
+    "C:\Program Files (x86)\PuTTY\pageant.exe" C:\Users\Administrator\credentials\<yourname>_keypair.ppk
 
 For more details, see:
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
 
-### On Mac 
+### On Mac
 
-Copy your key to ~/.ssh 
+Copy your key to ~/.ssh
 chmod it to 600
 
 
@@ -108,8 +108,8 @@ Or, set up your ssh [config](https://linux.die.net/man/5/ssh_config) file.
 ```
 Host ec2dev
   Hostname <hostname>
-  User centos 
-  IdentityFile /Users/<user>/.ssh/<user>.pem 
+  User centos
+  IdentityFile /Users/<user>/.ssh/<user>.pem
   ForwardX11 yes
   ForwardX11Trusted yes
 
