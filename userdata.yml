@@ -110,9 +110,9 @@ runcmd:
  - sed -i -e 's/<USER>/centos/' /etc/systemd/system/vncserver@.service
  - systemctl daemon-reload
  - [ sh, -c, echo "== Configuring iptables firewall" ]
- - systemctl start firewalld.service
- - systemctl enable firewalld.service
  - firewall-offline-cmd --zone=public --add-port=3389/tcp
+ - systemctl enable firewalld.service
+ - systemctl start firewalld.service
  - firewall-cmd --reload
  - firewall-cmd --list-all
  - [ sh, -c, echo "==== NOTE -- Need to interactively change passwd and vncpasswd before VNC server service can be started" ]
