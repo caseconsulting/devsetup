@@ -86,6 +86,7 @@ runcmd:
  - yum install -y firefox
  - firefox --version
  - [ sh, -c, echo "== Installing Xfce Desktop Environment" ]
+ - yum groupinstall -y "Server with GUI"
  - yum groupinstall -y "Xfce"
  - [ sh, -c, echo "== Creating .xinitrc" ]
  - echo "exec /usr/bin/xfce4-session" >> /home/centos/.xinitrc
