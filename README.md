@@ -3,6 +3,11 @@
 1. [Create User](#create_user)
 1. [Create Security Group](#create_security_group)
 1. [Update Security Group](#update_security_group)
+1. [Create Key Pair](#create_key_pair)
+1. [Setup Client](#setup_client)
+1. [Verify](#verify)
+1. [Create Elastic IP](#create_elastic_ip)
+1. [Configure Dev Workstation](#configure_dev_workstation)
 
 ## Create User
 
@@ -46,13 +51,15 @@ Select 'Intern Dev Security Group' button
       <Leave default allowing All traffic>
 ```
 
-## CREATE KEY PAIR
+## Create Key Pair
 
 In AWS console, go to EC2 console
 Click on Key Pairs
 If a key pair already exists for you, then skip to next section
 Create a new key pair with your name (e.g., mfrank_keypair)
 The private key (e.g., mfrank_keypair.pem) will automatically download to your workstation
+
+## Setup Client
 
 ### On Windows
 
@@ -113,8 +120,9 @@ For more details, see:
 
 ===============
 
-## LAUNCH DEVELOPMENT WORKSTATION
+## Launch Development Workstation
 
+```
 Launch new EC2 instance to serve as CentOS 7 development workstation
 Click "Launch Instance" from the EC2 console
 Select "AWS Marketplace"
@@ -123,10 +131,10 @@ Choose "CentOS 7 (x86_64) with Updates HVM"
 Select "t2.medium"
 Select "Next Configure Instance Details"
 Keep Defaults except:
-  Subnet: "subnet-59ddd902"
+  Subnet: "subnet-818b73c9"
   Auto-assign Public IP: "Enabled"
   Advanced Details:
-    Copy Contents of intern_dev_user_data.sh
+    Copy Contents of userdata.yml into User Data
   Configure Instance Details
 Select "Add Storage"
   Add a new Volume with the following:
@@ -147,8 +155,9 @@ Select 'Review and Launch'
 Review your entries
 Select 'Launch'
 Select your key pair
+```
 
-### VERIFY
+### Verify
 
 After the instance launches, ssh to it:
 
@@ -156,7 +165,12 @@ After the instance launches, ssh to it:
 
 ssh -vv -i <key> centos@<hostname>
 
-CREATE ELASTIC IP
+Tail /var/log/cloud-init-output.log and make sure that it completes successfully
+
+## Create Elastic IP
+
+```
+  (Optional)
   In AWS console, go to EC2 console
   Click on Elastic IPs
   Press "Allocate New Address" button
@@ -164,53 +178,70 @@ CREATE ELASTIC IP
   Choose Actions - Associate Address
   Click in the Instance field, select the EC2 instance that you just launched,
   and then press "Associate" button
+```
 
 ===============
 
-CONFIGURE DEV WORKSTATION
+## CONFIGURE DEV WORKSTATION
 
 Once dev workstation is up and running (i.e., green for Instance State and Status Checks),
 you can login and verify the server built correctly.
 
-LOGIN
+### LOGIN
+
 Using PuTTY, login to dev workstation as 'centos' user
 
-REVIEW CLOUD-INIT OUTPUT
+### REVIEW CLOUD-INIT OUTPUT
+
 cloud-init (i.e., user-data) execution is logged to /var/log/cloud-init-output.log
 sudo more /var/log/cloud-init-output.log
 
-SET PASSWORD FOR 'centos' USER
+### SET PASSWORD FOR 'centos' USER
+
+```
 sudo -i
 passwd centos
 <enter new password>
 <verify new password>
 exit
+```
 
-SET VNC PASSWORD FOR 'centos' USER
+### SET VNC PASSWORD FOR 'centos' USER
+
+```
 vncpasswd
 <enter same password>
 <verify same password>
+```
 
-RELOAD VNC SERVER
+### RELOAD VNC SERVER
+
+```
 sudo systemctl daemon-reload
 sudo systemctl start vncserver@:1.service
 sudo systemctl enable vncserver@:1.service
+```
 
-SET UP GIT
+### SET UP GIT
+
+```
 git config --global credential.helper '!aws codecommit credential-helper $@'
 git config --global credential.UseHttpPath true
 git config --global color.ui auto
 git config --global push.default simple
 git config --global user.name <YOUR_FIRST_NAME>
 git config --global user.email <YOUR_EMAIL>
+```
 
-===============
-
-LOGIN TO DEV WORKSTATION USING RDP
+### LOGIN TO DEV WORKSTATION USING RDP
 
 Open Windows Remote Desktop Connection (mstsc.exe)
+
 Press 'Show Options' to expand settings
+
 Keep the default settings, except the following:
+
+```
   General
     Computer: Public DNS for EC2 instance
     Username: centos
@@ -221,6 +252,8 @@ Keep the default settings, except the following:
     Font smoothing: checked
 Click 'Save As' to save this configuration to you Desktop
 Press 'Connect' button
+```
+
 If warning is displayed about identity of remote computer, then check
 "Don't ask me again for connections to this computer" and press "Yes" button.
 Login as 'centos' user with password you set for 'centos' user
@@ -228,11 +261,13 @@ Login as 'centos' user with password you set for 'centos' user
 
 ===============
 
-CONFIGURE WINDOW MANAGER
+### CONFIGURE WINDOW MANAGER
 
 Xfce
 
 (1) Google Chrome
+
+```
 Right-click on Desktop and select "Create Launcher..."
 In Name field, enter Chrome
 As you type, system will pop-up a recommendation for Google Chrome
@@ -249,8 +284,11 @@ From "Add New Item", select "Panel 1" and press "Add" button
   - This adds icon to top-right corner of screen
 From "Add New Item", select "Panel 2" and press "Add" button
 - This adds icon to bottom-middle of screen
+```
 
 (2) Mozilla Firefox
+
+```
 Right-click on Desktop and select "Create Launcher..."
 In Name field, enter Firefox
 As you type, system will pop-up a recommendation for Firefox
@@ -266,8 +304,11 @@ From "Add New Item", select "Panel 1" and press "Add" button
   - This adds icon to top-right corner of screen
 From "Add New Item", select "Panel 2" and press "Add" button
   - This adds icon to bottom-middle of screen
+```
 
 (3) Atom
+
+```
 Right-click on Desktop and select "Create Launcher..."
 In Name field, enter Atom
 As you type, system will pop-up a recommendation for Atom
@@ -282,14 +323,20 @@ From "Add New Item", select "Panel 1" and press "Add" button
   - This adds icon to top-right corner of screen
 From "Add New Item", select "Panel 2" and press "Add" button
 - This adds icon to bottom-middle of screen
+```
 
 (4) Clean Up Panels
+
+```
 From panel at bottom-middle of screen, right-click on generic Web Browser icon
 and select "Remove" option.
+```
 
 Mate
 
 (1) Google Chrome
+
+```
 In top left-corner, click on Applications and expand Internet
 Right-click on Google Chrome and select "Add this launcher to panel"
 In top left-corner, click on Applications and expand Internet
@@ -298,47 +345,53 @@ From the desktop, click on newly created Google Chrome launcher
 When prompted, leave box checked to "Make Google Chrome the default browser"
 and press "OK" button.
 Close Google Chrome
+```
 
 (2) Mozilla Firefox
+
+```
 In top left-corner, click on Applications and expand Internet
 Right-click on Firefox Web Browser and select "Add this launcher to desktop"
 From the desktop, click on newly created Firefox Web Browser launcher
 For "Import settings and data", select "Don't import anything" and press "Next"
 Close Firefox
+```
 
 (3) Atom
+
+```
 In top left-corner, click on Applications and expand Programming
 Right-click on Atom and select "Add this launcher to panel"
 In top left-corner, click on Applications and expand Programming
 Right-click on Atom and select "Add this launcher to desktop"
 From the desktop, click on newly created Atom launcher
 Close Atom
+```
 
-===============
-
-CONFIGURE DOT FILES
+### CONFIGURE DOT FILES
 
 Clone the dotFiles repo and follow instructions in readme.txt.
 
-===============
 
-UPGRADE INSTALLED PACKAGES
+### UPGRADE INSTALLED PACKAGES
+
+```sh
   sudo yum -y update
     Leave out the -y option so you have an opportunity to decide if you want to install updates or not
   sudo yum clean all
+```
 
-===============
-
-FIX FROZEN DEV WORKSTATION
+### FIX FROZEN DEV WORKSTATION
 
 If RDP session ever freezes (most likely due to no available memory),
 SSH to dev workstation (using PuTTY) and stop VNC server and xrdp processes
+
+```sh
 sudo systemctl stop vncserver@:1.service
 sudo systemctl stop xrdp
+```
 
-===============
-
-REBUILD DEV WORKSTATION FROM IMAGE
+### REBUILD DEV WORKSTATION FROM IMAGE
 
 If a development workstation needs to be rebuilt from an Amazon Machine Image
 (AMI), go to EC2 console, click on AMIs, select the AMI name that you want to
