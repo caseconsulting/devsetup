@@ -383,7 +383,7 @@ Clone the dotFiles repo and follow instructions in readme.txt.
 
 ```sh
   sudo yum -y update
-    Leave out the -y option so you have an opportunity to decide if you want to install updates or not
+  #  Leave out the -y option so you have an opportunity to decide if you want to install updates or not
   sudo yum clean all
 ```
 
