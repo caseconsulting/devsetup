@@ -15,6 +15,9 @@
    * [Review Cloud-init Output](#revie-cloud-init-output)
    * [Set Password For `centos` User](#set-password-for-centos-user)
    * [Set VNC Password](#set-vnc-password)
+   * [Reload VNC Server](#reload-vnc-server)
+   * [Set Up Git](#set-up-git)
+   * [Login To Dev Instance Using RDP](#login-to-dev-instance-using-rdp)
 
 ## Create User
 
@@ -220,7 +223,7 @@ vncpasswd
 <verify same password>
 ```
 
-### RELOAD VNC SERVER
+### Reload VNC Server
 
 ```
 sudo systemctl daemon-reload
@@ -228,7 +231,7 @@ sudo systemctl start vncserver@:1.service
 sudo systemctl enable vncserver@:1.service
 ```
 
-### SET UP GIT
+### Set Up Git
 
 ```
 git config --global credential.helper '!aws codecommit credential-helper $@'
@@ -239,7 +242,7 @@ git config --global user.name <YOUR_FIRST_NAME>
 git config --global user.email <YOUR_EMAIL>
 ```
 
-### LOGIN TO DEV WORKSTATION USING RDP
+### Login To Dev Instance Using RDP
 
 Open Windows Remote Desktop Connection (mstsc.exe)
 
@@ -247,18 +250,17 @@ Press 'Show Options' to expand settings
 
 Keep the default settings, except the following:
 
-```
-  General
-    Computer: Public DNS for EC2 instance
-    Username: centos
-  Display
-    Colors: True Color (24 bit)
-  Experience
-    Connection speed: LAN (10 Mbps or higher)
-    Font smoothing: checked
-Click 'Save As' to save this configuration to you Desktop
-Press 'Connect' button
-```
+
+1. General
+   * Computer: Public DNS for EC2 instance
+   * Username: centos
+1. Display 
+   * Colors: True Color (24 bit)
+1. Experience 
+   * Connection speed: LAN (10 Mbps or higher)
+   * Font smoothing: checked
+1. Click 'Save As' to save this configuration to you Desktop 
+1. Press 'Connect' button
 
 If warning is displayed about identity of remote computer, then check
 "Don't ask me again for connections to this computer" and press "Yes" button.
