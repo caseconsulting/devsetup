@@ -3,12 +3,12 @@
 1. [Create User](#create-user)
 1. [Create Security Group](#create-security-group)
 1. [Update Security Group](#update-security-group)
-1. [Create Key Pair](#create_key_pair)
-1. [Setup Client](#setup_client)
-1. [Launch Development Instance](#launch_development_instance)
+1. [Create Key Pair](#create-key-pair)
+1. [Setup Client](#setup-client)
+1. [Launch Development Instance](#launch-development-instance)
 1. [Verify](#verify)
-1. [Create Elastic IP](#create_elastic_ip)
-1. [Configure Dev Workstation](#configure_dev_workstation)
+1. [Create Elastic IP](#create-elastic-ip)
+1. [Configure Dev Workstation](#configure-dev-workstation)
 
 ## Create User
 
