@@ -39,15 +39,15 @@ If 'Intern Dev Workstation Security Group' exists, then skip to next section
 
 If the Security Group does exist, add the CIDR for your laptop
 
-```
-Select 'Intern Dev Security Group' button
-  Add Security group rules (do NOT delete any others!)
-    Inbound:
-      SSH - TCP -   22 - Custom IP (<CIDR Range for your laptop>)
-      RDP - TCP - 3389 - Custom IP (<CIDR Range for your laptop>)
-    Outbound:
-      <Leave default allowing All traffic>
-```
+
+* Select 'Intern Dev Security Group' button
+  * Add Security group rules (do NOT delete any others!)
+    * Inbound:
+      * SSH - TCP -   22 - Custom IP (<CIDR Range for your laptop>)
+      * RDP - TCP - 3389 - Custom IP (<CIDR Range for your laptop>)
+    * Outbound:
+      * <Leave default allowing All traffic>
+
 
 ## Create Key Pair
 
