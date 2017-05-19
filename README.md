@@ -18,6 +18,9 @@
    * [Reload VNC Server](#reload-vnc-server)
    * [Set Up Git](#set-up-git)
    * [Login To Dev Instance Using RDP](#login-to-dev-instance-using-rdp)
+   * [Configure dotfiles](#configure-dotfiles)
+   * [Upgrade Installed Packages](#upgrade-installed-packages)
+   * [Fix Frozen DEV Instance](#fix-frozen-dev-instance)
 
 ## Create User
 
@@ -313,72 +316,70 @@ Xfce
 
 (3) Atom
 
-```
-Right-click on Desktop and select "Create Launcher..."
-In Name field, enter Atom
-As you type, system will pop-up a recommendation for Atom
-Select recommended option for Atom
-Press "Create" button
-From the desktop, click on newly created Atom launcher
-When "Untrusted application launcher" appears, press "Mark Executable" button
-Close Atom
-Right-click on Atom icon on desktop and choose
-'Open With "Create Launcher on the panel"' option.
-From "Add New Item", select "Panel 1" and press "Add" button
-  - This adds icon to top-right corner of screen
-From "Add New Item", select "Panel 2" and press "Add" button
-- This adds icon to bottom-middle of screen
-```
+
+1. Right-click on Desktop and select "Create Launcher..."
+1. In Name field, enter Atom
+1. As you type, system will pop-up a recommendation for Atom
+1. Select recommended option for Atom
+1. Press "Create" button
+1. From the desktop, click on newly created Atom launcher
+1. When "Untrusted application launcher" appears, press "Mark Executable" button
+1. Close Atom
+1. Right-click on Atom icon on desktop and choose
+1. 'Open With "Create Launcher on the panel"' option.
+1. From "Add New Item", select "Panel 1" and press "Add" button
+     - This adds icon to top-right corner of screen
+1. From "Add New Item", select "Panel 2" and press "Add" button 
+     - This adds icon to bottom-middle of screen
+
 
 (4) Clean Up Panels
 
-```
 From panel at bottom-middle of screen, right-click on generic Web Browser icon
 and select "Remove" option.
-```
+
 
 Mate
 
 (1) Google Chrome
 
-```
-In top left-corner, click on Applications and expand Internet
-Right-click on Google Chrome and select "Add this launcher to panel"
-In top left-corner, click on Applications and expand Internet
-Right-click on Google Chrome and select "Add this launcher to desktop"
-From the desktop, click on newly created Google Chrome launcher
-When prompted, leave box checked to "Make Google Chrome the default browser"
-and press "OK" button.
-Close Google Chrome
-```
+
+1. In top left-corner, click on Applications and expand Internet
+1. Right-click on Google Chrome and select "Add this launcher to panel"
+1. In top left-corner, click on Applications and expand Internet
+1. Right-click on Google Chrome and select "Add this launcher to desktop"
+1. From the desktop, click on newly created Google Chrome launcher
+1. When prompted, leave box checked to "Make Google Chrome the default browser" and press "OK" button.
+1. Close Google Chrome
+
 
 (2) Mozilla Firefox
 
-```
-In top left-corner, click on Applications and expand Internet
-Right-click on Firefox Web Browser and select "Add this launcher to desktop"
-From the desktop, click on newly created Firefox Web Browser launcher
-For "Import settings and data", select "Don't import anything" and press "Next"
-Close Firefox
-```
+
+1. In top left-corner, click on Applications and expand Internet
+1. Right-click on Firefox Web Browser and select "Add this launcher to desktop"
+1. From the desktop, click on newly created Firefox Web Browser launcher
+1. For "Import settings and data", select "Don't import anything" and press "Next"
+1. Close Firefox
+
 
 (3) Atom
 
-```
-In top left-corner, click on Applications and expand Programming
-Right-click on Atom and select "Add this launcher to panel"
-In top left-corner, click on Applications and expand Programming
-Right-click on Atom and select "Add this launcher to desktop"
-From the desktop, click on newly created Atom launcher
-Close Atom
-```
 
-### CONFIGURE DOT FILES
+1. In top left-corner, click on Applications and expand Programming
+1. Right-click on Atom and select "Add this launcher to panel"
+1. In top left-corner, click on Applications and expand Programming
+1. Right-click on Atom and select "Add this launcher to desktop"
+1. From the desktop, click on newly created Atom launcher
+1. Close Atom
+
+
+### Configure dotFiles
 
 Clone the dotFiles repo and follow instructions in readme.txt.
 
 
-### UPGRADE INSTALLED PACKAGES
+### Upgrade Installed Packages
 
 ```sh
   sudo yum -y update
@@ -386,7 +387,7 @@ Clone the dotFiles repo and follow instructions in readme.txt.
   sudo yum clean all
 ```
 
-### FIX FROZEN DEV WORKSTATION
+### Fix Frozen DEV Instance
 
 If RDP session ever freezes (most likely due to no available memory),
 SSH to dev workstation (using PuTTY) and stop VNC server and xrdp processes
@@ -395,15 +396,3 @@ SSH to dev workstation (using PuTTY) and stop VNC server and xrdp processes
 sudo systemctl stop vncserver@:1.service
 sudo systemctl stop xrdp
 ```
-
-### REBUILD DEV WORKSTATION FROM IMAGE
-
-If a development workstation needs to be rebuilt from an Amazon Machine Image
-(AMI), go to EC2 console, click on AMIs, select the AMI name that you want to
-use for a new server, and then choose Actions - Launch.  Follow the same steps
-above for launching a new development workstation, including connecting it to an
-Elastic IP address.
-
-Once the new server is up, you will probably need to set the password for the
-'centos' user.  Follow the steps above for setting the password (twice), once
-using the passwd command and once using the vncpasswd command.
