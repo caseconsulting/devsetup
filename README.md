@@ -74,7 +74,7 @@ If the Security Group does exist, add the CIDR for your laptop
 1. Click on Add Key
 1. Select private key file (e.g., <yourname>_keypair.ppk)
 1. Close Pageant (it is still running in background)
-1. To run Pageant when you login to Windows:
+1. To run Pageant when you login to Windows: 
   * Create Pageant shortcut in Windows Startup folder
   * Change shortcut target to include private key, like the following:
     "C:\Program Files (x86)\PuTTY\pageant.exe" C:\Users\Administrator\credentials\<yourname>_keypair.ppk
