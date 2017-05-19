@@ -5,6 +5,7 @@
 1. [Update Security Group](#update_security_group)
 1. [Create Key Pair](#create_key_pair)
 1. [Setup Client](#setup_client)
+1. [Launch Development Instance](#launch_development_instance)
 1. [Verify](#verify)
 1. [Create Elastic IP](#create_elastic_ip)
 1. [Configure Dev Workstation](#configure_dev_workstation)
@@ -118,9 +119,9 @@ vnc://<ec2 instance hostname>
 For more details, see:
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
 
-===============
+---
 
-## Launch Development Workstation
+## Launch Development Instance
 
 1. Launch new EC2 instance to serve as CentOS 7 development workstation
 1. Click "Launch Instance" from the EC2 console
