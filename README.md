@@ -1,8 +1,8 @@
 # AWS CONFIGURATION
 
-1. [Create User](#create_user)
-1. [Create Security Group](#create_security_group)
-1. [Update Security Group](#update_security_group)
+1. [Create User](#create-user)
+1. [Create Security Group](#create-security-group)
+1. [Update Security Group](#update-security-group)
 1. [Create Key Pair](#create_key_pair)
 1. [Setup Client](#setup_client)
 1. [Launch Development Instance](#launch_development_instance)
