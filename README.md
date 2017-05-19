@@ -51,29 +51,29 @@ If the Security Group does exist, add the CIDR for your laptop
 
 ## Create Key Pair
 
-In AWS console, go to EC2 console
-Click on Key Pairs
-If a key pair already exists for you, then skip to next section
-Create a new key pair with your name (e.g., <yourname>_keypair)
-The private key (e.g., <yourname>_keypair.pem) will automatically download to your workstation
+1. In AWS console, go to EC2 console
+2. Click on Key Pairs
+3. If a key pair already exists for you, then skip to next section
+4. Create a new key pair with your name (e.g., <yourname>_keypair)
+5. The private key (e.g., <yourname>_keypair.pem) will automatically download to your workstation
 
 ## Setup Client
 
 ### On Windows
 
-Open PuTTYgen (e.g., C:\Program Files (x86)\PuTTY\puttygen.exe)
-Load your private key PEM file (HINT: Change file viewer to show All Files)
-Enter and confirm Key passphrase (optional)
-Under Type of key to generate, select SSH-2 RSA
-Click on Save private key and save private key file (e.g., <yourname>_keypair.ppk)
-Exit PuTTYgen
-Open Pageant (e.g., "C:\Program Files (x86)\PuTTY\pageant.exe")
-Click on Add Key
-Select private key file (e.g., <yourname>_keypair.ppk)
-Close Pageant (it is still running in background)
-To run Pageant when you login to Windows:
-  Create Pageant shortcut in Windows Startup folder
-  Change shortcut target to include private key, like the following:
+1. Open PuTTYgen (e.g., C:\Program Files (x86)\PuTTY\puttygen.exe)
+1. Load your private key PEM file (HINT: Change file viewer to show All Files)
+1. Enter and confirm Key passphrase (optional)
+1. Under Type of key to generate, select SSH-2 RSA
+1. Click on Save private key and save private key file (e.g., <yourname>_keypair.ppk)
+1. Exit PuTTYgen
+1. Open Pageant (e.g., "C:\Program Files (x86)\PuTTY\pageant.exe")
+1. Click on Add Key
+1. Select private key file (e.g., <yourname>_keypair.ppk)
+1. Close Pageant (it is still running in background)
+1. To run Pageant when you login to Windows:
+  * Create Pageant shortcut in Windows Startup folder
+  * Change shortcut target to include private key, like the following:
     "C:\Program Files (x86)\PuTTY\pageant.exe" C:\Users\Administrator\credentials\<yourname>_keypair.ppk
 
 For more details, see:
@@ -81,19 +81,8 @@ For more details, see:
 
 ### On Mac
 
-Copy your key to ~/.ssh
-chmod it to 600
-
-
-#### via safari
-
-Open Safari
-
-in the url type:
-
-vnc://<ec2 instance hostname>
-
-(haven't gotten above to work yet)
+1. Copy your key to ~/.ssh
+1. chmod chmod the key to 600
 
 #### to ssh to the instance:
 
@@ -112,6 +101,17 @@ Host ec2dev
   ForwardX11Trusted yes
 
 ```
+
+#### via safari
+
+Open Safari
+
+in the url type:
+
+vnc://<ec2 instance hostname>
+
+(haven't gotten above to work yet)
+
 
 For more details, see:
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
