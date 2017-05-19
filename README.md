@@ -5,6 +5,8 @@
 1. [Update Security Group](#update-security-group)
 1. [Create Key Pair](#create-key-pair)
 1. [Setup Client](#setup-client)
+  * [On Windows](#on-windows)
+  * [On Mac](#on-mac)
 1. [Launch Development Instance](#launch-development-instance)
 1. [Verify](#verify)
 1. [Create Elastic IP](#create-elastic-ip)
@@ -131,11 +133,11 @@ For more details, see:
 1. Select "t2.medium"
 1. Select "Next Configure Instance Details"
 1. Keep Defaults except:
-  *  Subnet: "subnet-818b73c9"
-  *  Auto-assign Public IP: "Enabled"
-  *  Advanced Details:
+  * Subnet: "subnet-818b73c9"
+  * Auto-assign Public IP: "Enabled"
+  * Advanced Details:
     * Copy Contents of [userdata.yml](userdata.yml) into User Data or use the userdata file uploader
-  *  Configure Instance Details
+  * Configure Instance Details
 1. Select "Add Storage"
   * Add a new Volume with the following:
     * Volume Type: EBS
