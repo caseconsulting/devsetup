@@ -5,12 +5,16 @@
 1. [Update Security Group](#update-security-group)
 1. [Create Key Pair](#create-key-pair)
 1. [Setup Client](#setup-client)
-  * [On Windows](#on-windows)
-  * [On Mac](#on-mac)
+   * [On Windows](#on-windows)
+   * [On Mac](#on-mac)
 1. [Launch Development Instance](#launch-development-instance)
 1. [Verify](#verify)
 1. [Create Elastic IP](#create-elastic-ip)
-1. [Configure Dev Workstation](#configure-dev-workstation)
+1. [Configure Host Workstation](#configure-host-workstation)
+   * [Login](#login)
+   * [Review Cloud-init Output](#revie-cloud-init-output)
+   * [Set Password For `centos` User](#set-password-for-centos-user)
+   * [Set VNC Password](#set-vnc-password)
 
 ## Create User
 
@@ -165,40 +169,40 @@ After the instance launches, ssh to it:
 
 #### MAC
 
+```
 ssh -vv -i <key> centos@<hostname>
+```
 
 Tail /var/log/cloud-init-output.log and make sure that it completes successfully
 
 ## Create Elastic IP
 
-```
-  (Optional)
-  In AWS console, go to EC2 console
-  Click on Elastic IPs
-  Press "Allocate New Address" button
-  Select new Elastic IP
-  Choose Actions - Associate Address
-  Click in the Instance field, select the EC2 instance that you just launched,
-  and then press "Associate" button
-```
+####  (Optional)
 
-===============
+1.  In AWS console, go to EC2 console
+1.  Click on Elastic IPs
+1.  Press "Allocate New Address" button
+1.  Select new Elastic IP
+1.  Choose Actions - Associate Address
+1.  Click in the Instance field, select the EC2 instance that you just launched, and then press "Associate" button
 
-## CONFIGURE DEV WORKSTATION
+---
+
+## Configure Host Workstation
 
 Once dev workstation is up and running (i.e., green for Instance State and Status Checks),
 you can login and verify the server built correctly.
 
-### LOGIN
+### Login
 
 Using PuTTY, login to dev workstation as 'centos' user
 
-### REVIEW CLOUD-INIT OUTPUT
+### Review Cloud-init Output
 
 cloud-init (i.e., user-data) execution is logged to /var/log/cloud-init-output.log
 sudo more /var/log/cloud-init-output.log
 
-### SET PASSWORD FOR 'centos' USER
+### Set Password For `centos` User
 
 ```
 sudo -i
@@ -208,7 +212,7 @@ passwd centos
 exit
 ```
 
-### SET VNC PASSWORD FOR 'centos' USER
+### Set VNC Password
 
 ```
 vncpasswd
