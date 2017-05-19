@@ -201,7 +201,7 @@ you can login and verify the server built correctly.
 
 ### Login
 
-Using PuTTY, login to dev workstation as 'centos' user
+Using PuTTY, login to dev workstation as 'centos' user if you are on windows
 
 ### Review Cloud-init Output
 

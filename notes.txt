@@ -1,0 +1,74 @@
+## install aws cli
+
+sudo yum -y update
+sudo yum -y groupinstall development
+sudo yum install -y unzip
+sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
+sudo yum -y install python36u python36u-pip xauth xterm tigervnc-server
+sudo yum -y groups install "GNOME Desktop" 
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+unzip awscli-bundle.zip
+sudo /awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+sudo yum install -y nodejs gvim atom ruby
+
+sudo npm install -g gulp yarn jshint csshint editorconfig
+sudo bash -c 'echo "X11Forwarding yes" >> /etc/ssh/sshd_config '
+
+sudo service sshd restart
+
+# user to run:
+
+```sh
+$ aws configure
+```
+will need AWS access Key ID
+AWS Secret Access Key 
+set default region
+set default output
+
+
+VPC:  vpc-103c1076
+VPC CIDR: 172.31.0.0/16
+VPC Endpoint: vpce-060cda6f
+
+Dev Setup Policy:
+
+{
+   "Version": "2012-10-17",
+   "Id": "Policy1415115909153",
+   "Statement": [
+     {
+       "Sid": "Access-VPC-only",
+       "Action": "s3:*",
+       "Effect": "Deny",
+       "Resource": ["arn:aws:s3:::intern-dev-setup",
+                    "arn:aws:s3:::intern-dev-setup/*"],
+       "Condition": {
+         "StringNotEquals": {
+           "aws:sourceVpce": "vpce-060cda6f"
+         }
+       },
+       "Principal": "*"
+     }
+   ]
+}
+
+{
+  "Version": "2012-10-17",
+  "Id": "S3PolicyId1",
+  "Statement": [
+    {
+      "Sid": "IPAllow",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::intern-dev-setup/*",
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": "172.31.0.0/16"
+        }
+      }
+    }
+  ]
+}

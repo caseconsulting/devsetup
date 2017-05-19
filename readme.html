@@ -1,0 +1,138 @@
+<h1>AWS CONFIGURATION</h1>
+
+<ol>
+<li><a href="#create_user">Create User</a></li>
+<li><a href="#create security group">Create Security Group</a></li>
+<li><a href="#update security group">Update Security Group</a></li>
+</ol>
+
+<h2>CREATE USER</h2>
+
+<p>If a user does not already exist for you, get an administrator to create one<br />for you with associated IAM policies that allow you to launch EC2 instances</p>
+
+<h2>CREATE SECURITY GROUP</h2>
+
+<p>In AWS console, go to EC2 console</p>
+
+<p>Click on Security Groups</p>
+
+<p>If 'Intern Dev Workstation Security Group' exists, then skip to next section</p>
+
+<div class="highlight"><pre lang="">Press 'Create Security Group' button
+  Security group name: 'Intern Dev SG'
+  Description: 'Intern Dev SG' 
+  VPC: <Leave default>
+  Security group rules:
+    Inbound:
+      SSH - TCP -   22 - Custom IP (<CIDR Range for your laptop>)
+      RDP - TCP - 3389 - Custom IP (<CIDR Range for your laptop>)
+    Outbound:
+      <Leave default allowing All traffic>
+</pre></div>
+
+<p><em>Note: if you are behind a router, the inbound will CIDR will have to be that of your router.</em></p>
+
+<h2>UPDATE SECURITY GROUP</h2>
+
+<p>If the Security Group does exist, add the CIDR for your laptop</p>
+
+<div class="highlight"><pre lang="">Select 'Intern Dev Security Group' button
+  Add Security group rules (do NOT delete any others!)
+    Inbound:
+      SSH - TCP -   22 - Custom IP (<CIDR Range for your laptop>)
+      RDP - TCP - 3389 - Custom IP (<CIDR Range for your laptop>)
+    Outbound:
+      <Leave default allowing All traffic>
+</pre></div>
+
+<h2>CREATE KEY PAIR</h2>
+
+<p>In AWS console, go to EC2 console<br />Click on Key Pairs<br />If a key pair already exists for you, then skip to next section<br />Create a new key pair with your name (e.g., mfrank_keypair)<br />The private key (e.g., mfrank_keypair.pem) will automatically download to your workstation</p>
+
+<h3>On Windows</h3>
+
+<p>Open PuTTYgen (e.g., C:\Program Files (x86)\PuTTY\puttygen.exe)<br />Load your private key PEM file (HINT: Change file viewer to show All Files)<br />Enter and confirm Key passphrase (optional)<br />Under Type of key to generate, select SSH-2 RSA<br />Click on Save private key and save private key file (e.g., mfrank_keypair.ppk)<br />Exit PuTTYgen<br />Open Pageant (e.g., "C:\Program Files (x86)\PuTTY\pageant.exe")<br />Click on Add Key<br />Select private key file (e.g., mfrank_keypair.ppk)<br />Close Pageant (it is still running in background)<br />To run Pageant when you login to Windows:<br />  Create Pageant shortcut in Windows Startup folder<br />  Change shortcut target to include private key, like the following:<br />    "C:\Program Files (x86)\PuTTY\pageant.exe" C:\Users\Administrator\credentials\mfrank_keypair.ppk</p>
+
+<p>For more details, see:<br />  <a href='http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html'>http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html</a></p>
+
+<h3>On Mac</h3>
+
+<p>For more details, see:<br />  <a href='http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html'>http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html</a></p>
+
+<p>===============</p>
+
+<p>LAUNCH DEVELOPMENT WORKSTATION</p>
+
+<p>Launch new EC2 instance to serve as CentOS 7 development workstation<br />From AWS Marketplace, choose "CentOS 7 (x86_64) with Updates HVM"<br />Keep default values, except the following:<br />  Instance Type<br />    t2.large<br />  Configure Instance Details<br />    Advanced Details<br />      User data: As text<br />        Paste contents from centos7_xfce_user-data file<br />        (user-data files exist for other desktop environments.<br />         However, Xfce and Mate use the least memory.)<br />  Add Storage<br />    Size: 20 GiB<br />    Volume Type: General Purpose SSD<br />    Delete on Termination: checked<br />  Add Tags<br />    Name: <your user name> Dev<br />    Application: Catbert<br />    Schedule: Daily<br />  Configure Security Group<br />    Assign a security group: Select an existing security group<br />      Check box next to Catbert Dev Workstation security group<br />  After clicking button to launch instance, choose your key pair and acknowledge</p>
+
+<p>CREATE ELASTIC IP<br />  In AWS console, go to EC2 console<br />  Click on Elastic IPs<br />  Press "Allocate New Address" button<br />  Select new Elastic IP<br />  Choose Actions - Associate Address<br />  Click in the Instance field, select the EC2 instance that you just launched,<br />  and then press "Associate" button</p>
+
+<p>===============</p>
+
+<p>CONFIGURE DEV WORKSTATION</p>
+
+<p>Once dev workstation is up and running (i.e., green for Instance State and Status Checks),<br />you can login and verify the server built correctly.</p>
+
+<p>LOGIN<br />Using PuTTY, login to dev workstation as 'centos' user</p>
+
+<p>REVIEW CLOUD-INIT OUTPUT<br />cloud-init (i.e., user-data) execution is logged to /var/log/cloud-init-output.log<br />sudo more /var/log/cloud-init-output.log</p>
+
+<p>SET PASSWORD FOR 'centos' USER<br />sudo -i<br />passwd centos<br /><enter new password><br /><verify new password><br />exit</p>
+
+<p>SET VNC PASSWORD FOR 'centos' USER<br />vncpasswd<br /><enter same password><br /><verify same password></p>
+
+<p>RELOAD VNC SERVER<br />sudo systemctl daemon-reload<br />sudo systemctl start vncserver@:1.service<br />sudo systemctl enable vncserver@:1.service</p>
+
+<p>SET UP GIT<br />git config --global credential.helper '!aws codecommit credential-helper $@'<br />git config --global credential.UseHttpPath true<br />git config --global color.ui auto<br />git config --global push.default simple<br />git config --global user.name <YOUR_FIRST_NAME><br />git config --global user.email <YOUR_EMAIL></p>
+
+<p>===============</p>
+
+<p>LOGIN TO DEV WORKSTATION USING RDP</p>
+
+<p>Open Windows Remote Desktop Connection (mstsc.exe)<br />Press 'Show Options' to expand settings<br />Keep the default settings, except the following:<br />  General<br />    Computer: Public DNS for EC2 instance<br />    Username: centos<br />  Display<br />    Colors: True Color (24 bit)<br />  Experience<br />    Connection speed: LAN (10 Mbps or higher)<br />    Font smoothing: checked<br />Click 'Save As' to save this configuration to you Desktop<br />Press 'Connect' button<br />If warning is displayed about identity of remote computer, then check<br />"Don't ask me again for connections to this computer" and press "Yes" button.<br />Login as 'centos' user with password you set for 'centos' user<br />(Xfce only) When welcomed to first start of panel, choose "Use default config"</p>
+
+<p>===============</p>
+
+<p>CONFIGURE WINDOW MANAGER</p>
+
+<p>Xfce</p>
+
+<p>(1) Google Chrome<br />Right-click on Desktop and select "Create Launcher..."<br />In Name field, enter Chrome<br />As you type, system will pop-up a recommendation for Google Chrome<br />Select recommended option for Google Chrome<br />Press "Create" button<br />From the desktop, click on newly created Google Chrome launcher<br />When "Untrusted application launcher" appears, press "Mark Executable" button<br />When prompted, leave box checked to "Make Google Chrome the default browser" and<br />press "OK" button.<br />Close Google Chrome<br />Right-click on Google Chrome icon on desktop and choose<br />'Open With "Create Launcher on the panel"' option.<br />From "Add New Item", select "Panel 1" and press "Add" button<br />  - This adds icon to top-right corner of screen<br />From "Add New Item", select "Panel 2" and press "Add" button<br />- This adds icon to bottom-middle of screen</p>
+
+<p>(2) Mozilla Firefox<br />Right-click on Desktop and select "Create Launcher..."<br />In Name field, enter Firefox<br />As you type, system will pop-up a recommendation for Firefox<br />Select recommended option for Firefox<br />Press "Create" button<br />From the desktop, click on newly created Firefox Web Browser launcher<br />When "Untrusted application launcher" appears, press "Mark Executable" button<br />For "Import settings and data", select "Don't import anything" and press "Next"<br />Close Firefox<br />Right-click on Firefox Web Browser icon on desktop and choose<br />'Open With "Create Launcher on the panel"' option.<br />From "Add New Item", select "Panel 1" and press "Add" button<br />  - This adds icon to top-right corner of screen<br />From "Add New Item", select "Panel 2" and press "Add" button<br />  - This adds icon to bottom-middle of screen</p>
+
+<p>(3) Atom<br />Right-click on Desktop and select "Create Launcher..."<br />In Name field, enter Atom<br />As you type, system will pop-up a recommendation for Atom<br />Select recommended option for Atom<br />Press "Create" button<br />From the desktop, click on newly created Atom launcher<br />When "Untrusted application launcher" appears, press "Mark Executable" button<br />Close Atom<br />Right-click on Atom icon on desktop and choose<br />'Open With "Create Launcher on the panel"' option.<br />From "Add New Item", select "Panel 1" and press "Add" button<br />  - This adds icon to top-right corner of screen<br />From "Add New Item", select "Panel 2" and press "Add" button<br />- This adds icon to bottom-middle of screen</p>
+
+<p>(4) Clean Up Panels<br />From panel at bottom-middle of screen, right-click on generic Web Browser icon<br />and select "Remove" option.</p>
+
+<p>Mate</p>
+
+<p>(1) Google Chrome<br />In top left-corner, click on Applications and expand Internet<br />Right-click on Google Chrome and select "Add this launcher to panel"<br />In top left-corner, click on Applications and expand Internet<br />Right-click on Google Chrome and select "Add this launcher to desktop"<br />From the desktop, click on newly created Google Chrome launcher<br />When prompted, leave box checked to "Make Google Chrome the default browser"<br />and press "OK" button.<br />Close Google Chrome</p>
+
+<p>(2) Mozilla Firefox<br />In top left-corner, click on Applications and expand Internet<br />Right-click on Firefox Web Browser and select "Add this launcher to desktop"<br />From the desktop, click on newly created Firefox Web Browser launcher<br />For "Import settings and data", select "Don't import anything" and press "Next"<br />Close Firefox</p>
+
+<p>(3) Atom<br />In top left-corner, click on Applications and expand Programming<br />Right-click on Atom and select "Add this launcher to panel"<br />In top left-corner, click on Applications and expand Programming<br />Right-click on Atom and select "Add this launcher to desktop"<br />From the desktop, click on newly created Atom launcher<br />Close Atom</p>
+
+<p>===============</p>
+
+<p>CONFIGURE DOT FILES</p>
+
+<p>Clone the dotFiles repo and follow instructions in readme.txt.</p>
+
+<p>===============</p>
+
+<p>UPGRADE INSTALLED PACKAGES<br />  sudo yum -y update<br />    Leave out the -y option so you have an opportunity to decide if you want to install updates or not<br />  sudo yum clean all</p>
+
+<p>===============</p>
+
+<p>FIX FROZEN DEV WORKSTATION</p>
+
+<p>If RDP session ever freezes (most likely due to no available memory),<br />SSH to dev workstation (using PuTTY) and stop VNC server and xrdp processes<br />sudo systemctl stop vncserver@:1.service<br />sudo systemctl stop xrdp</p>
+
+<p>===============</p>
+
+<p>REBUILD DEV WORKSTATION FROM IMAGE</p>
+
+<p>If a development workstation needs to be rebuilt from an Amazon Machine Image<br />(AMI), go to EC2 console, click on AMIs, select the AMI name that you want to<br />use for a new server, and then choose Actions - Launch.  Follow the same steps<br />above for launching a new development workstation, including connecting it to an<br />Elastic IP address.</p>
+
+<p>Once the new server is up, you will probably need to set the password for the<br />'centos' user.  Follow the steps above for setting the password (twice), once<br />using the passwd command and once using the vncpasswd command.</p>
