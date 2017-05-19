@@ -84,7 +84,7 @@ For more details, see:
 1. Copy your key to ~/.ssh
 1. chmod chmod the key to 600
 
-#### to ssh to the instance:
+#### To ssh to the instance:
 
 ```sh
 ssh -i ~/.ssh/<keyname> centos@<aws hostname>
@@ -102,15 +102,17 @@ Host ec2dev
 
 ```
 
-#### via safari
+#### Via safari
 
 Open Safari
 
+(haven't gotten above to work yet) From what I have read it is supposed to works
+
 in the url type:
 
+```
 vnc://<ec2 instance hostname>
-
-(haven't gotten above to work yet)
+```
 
 
 For more details, see:
@@ -120,40 +122,39 @@ For more details, see:
 
 ## Launch Development Workstation
 
-```
-Launch new EC2 instance to serve as CentOS 7 development workstation
-Click "Launch Instance" from the EC2 console
-Select "AWS Marketplace"
-Search "CentOS 7"
-Choose "CentOS 7 (x86_64) with Updates HVM"
-Select "t2.medium"
-Select "Next Configure Instance Details"
-Keep Defaults except:
-  Subnet: "subnet-818b73c9"
-  Auto-assign Public IP: "Enabled"
-  Advanced Details:
-    Copy Contents of userdata.yml into User Data
-  Configure Instance Details
-Select "Add Storage"
-  Add a new Volume with the following:
-    Volume Type: EBS
-    Device: /dev/sdb  - this is important.  Userdata will look for this device.
-    Size: 20GB
-    Volume Type: General Purpose SSD
-    Delete On Termincation: Check
-Select "Add Tags"
-  Add Tags
-    Name: <your user name> Dev
-    Application: Intern Dev
-    Schedule: Daily
-Select "Configure Security Groups"
-  Check 'Select an exiting security group'
-  Select 'Intern Dev SG'
-Select 'Review and Launch'
-Review your entries
-Select 'Launch'
-Select your key pair
-```
+1. Launch new EC2 instance to serve as CentOS 7 development workstation
+1. Click "Launch Instance" from the EC2 console
+1. Select "AWS Marketplace"
+1. Search "CentOS 7"
+1. Choose "CentOS 7 (x86_64) with Updates HVM"
+1. Select "t2.medium"
+1. Select "Next Configure Instance Details"
+1. Keep Defaults except:
+  *  Subnet: "subnet-818b73c9"
+  *  Auto-assign Public IP: "Enabled"
+  *  Advanced Details:
+    * Copy Contents of [userdata.yml](userdata.yml) into User Data or use the userdata file uploader
+  *  Configure Instance Details
+1. Select "Add Storage"
+  * Add a new Volume with the following:
+    * Volume Type: EBS
+    * Device: /dev/sdb  - this is important.  Userdata will look for this device.
+    * Size: 20GB
+    * Volume Type: General Purpose SSD
+    * Delete On Termincation: Check
+1. Select "Add Tags"
+  * Add Tags
+    * Name: `<your name>` Dev
+    * Application: Intern Dev
+    * Schedule: Daily
+1. Select "Configure Security Groups"
+  * Check 'Select an exiting security group'
+  * Select 'Intern Dev SG'
+1. Select 'Review and Launch'
+1. Review your entries
+1. Select 'Launch'
+1. Select your key pair
+
 
 ### Verify
 
