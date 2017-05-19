@@ -22,18 +22,16 @@ Click on Security Groups
 
 If 'Intern Dev Workstation Security Group' exists, then skip to next section
 
-```
-Press 'Create Security Group' button
-  Security group name: 'Intern Dev SG'
-  Description: 'Intern Dev SG'
-  VPC: <Leave default>
-  Security group rules:
-    Inbound:
-      SSH - TCP -   22 - Custom IP (<CIDR Range for your laptop>)
-      RDP - TCP - 3389 - Custom IP (<CIDR Range for your laptop>)
-    Outbound:
-      <Leave default allowing All traffic>
-```
+* Press 'Create Security Group' button
+  1. Security group name: 'Intern Dev SG'
+  2. Description: 'Intern Dev SG'
+  3. VPC: <Leave default>
+  4. Security group rules:
+    * Inbound:
+      * SSH - TCP -   22 - Custom IP (<CIDR Range for your laptop>)
+      * RDP - TCP - 3389 - Custom IP (<CIDR Range for your laptop>)
+    * Outbound:
+      * <Leave default allowing All traffic>
 
 *Note: if you are behind a router, the inbound will CIDR will have to be that of your router.*
 
