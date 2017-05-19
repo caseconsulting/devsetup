@@ -267,52 +267,49 @@ If warning is displayed about identity of remote computer, then check
 Login as 'centos' user with password you set for 'centos' user
 (Xfce only) When welcomed to first start of panel, choose "Use default config"
 
-===============
+---
 
-### CONFIGURE WINDOW MANAGER
+### Configure Window Manager
 
 Xfce
 
 (1) Google Chrome
 
-```
-Right-click on Desktop and select "Create Launcher..."
-In Name field, enter Chrome
-As you type, system will pop-up a recommendation for Google Chrome
-Select recommended option for Google Chrome
-Press "Create" button
-From the desktop, click on newly created Google Chrome launcher
-When "Untrusted application launcher" appears, press "Mark Executable" button
-When prompted, leave box checked to "Make Google Chrome the default browser" and
-press "OK" button.
-Close Google Chrome
-Right-click on Google Chrome icon on desktop and choose
-'Open With "Create Launcher on the panel"' option.
-From "Add New Item", select "Panel 1" and press "Add" button
-  - This adds icon to top-right corner of screen
-From "Add New Item", select "Panel 2" and press "Add" button
-- This adds icon to bottom-middle of screen
-```
+1. Right-click on Desktop and select "Create Launcher..."
+1. In Name field, enter Chrome
+1. As you type, system will pop-up a recommendation for Google Chrome
+1. Select recommended option for Google Chrome
+1. Press "Create" button
+1. From the desktop, click on newly created Google Chrome launcher
+1. When "Untrusted application launcher" appears, press "Mark Executable" button
+1. When prompted, leave box checked to "Make Google Chrome the default browser" and
+1. press "OK" button.
+1. Close Google Chrome
+1. Right-click on Google Chrome icon on desktop and choose
+1. 'Open With "Create Launcher on the panel"' option.
+1. From "Add New Item", select "Panel 1" and press "Add" button 
+    - This adds icon to top-right corner of screen
+1. From "Add New Item", select "Panel 2" and press "Add" button 
+    - This adds icon to bottom-middle of screen
 
 (2) Mozilla Firefox
 
-```
-Right-click on Desktop and select "Create Launcher..."
-In Name field, enter Firefox
-As you type, system will pop-up a recommendation for Firefox
-Select recommended option for Firefox
-Press "Create" button
-From the desktop, click on newly created Firefox Web Browser launcher
-When "Untrusted application launcher" appears, press "Mark Executable" button
-For "Import settings and data", select "Don't import anything" and press "Next"
-Close Firefox
-Right-click on Firefox Web Browser icon on desktop and choose
-'Open With "Create Launcher on the panel"' option.
-From "Add New Item", select "Panel 1" and press "Add" button
-  - This adds icon to top-right corner of screen
-From "Add New Item", select "Panel 2" and press "Add" button
-  - This adds icon to bottom-middle of screen
-```
+1. Right-click on Desktop and select "Create Launcher..."
+1. In Name field, enter Firefox
+1. As you type, system will pop-up a recommendation for Firefox
+1. Select recommended option for Firefox
+1. Press "Create" button
+1. From the desktop, click on newly created Firefox Web Browser launcher
+1. When "Untrusted application launcher" appears, press "Mark Executable" button
+1. For "Import settings and data", select "Don't import anything" and press "Next"
+1. Close Firefox
+1. Right-click on Firefox Web Browser icon on desktop and choose
+1. 'Open With "Create Launcher on the panel"' option.
+1. From "Add New Item", select "Panel 1" and press "Add" button
+    - This adds icon to top-right corner of screen
+1. From "Add New Item", select "Panel 2" and press "Add" button 
+    - This adds icon to bottom-middle of screen
+ 
 
 (3) Atom
 
