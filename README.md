@@ -100,14 +100,14 @@ For more details, see:
 #### To ssh to the instance:
 
 ```sh
-ssh -i ~/.ssh/<keyname> centos@<aws_public_dns>
+ssh -i ~/.ssh/<keyname> centos@<hostname>
 ```
 
 Or, set up your ssh [config](https://linux.die.net/man/5/ssh_config) file.
 
 ```
 Host ec2dev
-  Hostname <aws_public_dns>
+  Hostname <hostname>
   User centos
   IdentityFile /Users/<user>/.ssh/<user>.pem
   ForwardX11 yes
@@ -176,7 +176,7 @@ After the instance launches, ssh to it:
 #### MAC
 
 ```
-ssh -vv -i <key> centos@<aws_public_dns>
+ssh -vv -i <key> centos@<hostname>
 ```
 
 Tail /var/log/cloud-init-output.log and make sure that it completes successfully
