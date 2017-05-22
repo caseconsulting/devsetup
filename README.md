@@ -33,7 +33,7 @@ In AWS console, go to EC2 console
 
 Click on Security Groups
 
-If 'Intern Dev Workstation Security Group' exists, then skip to next section
+If 'Intern Dev SG' exists, then skip to next section
 
 * Press 'Create Security Group' button
   * Security group name: 'Intern Dev SG'
