@@ -100,14 +100,14 @@ For more details, see:
 #### To ssh to the instance:
 
 ```sh
-ssh -i ~/.ssh/<keyname> centos@<aws hostname>
+ssh -i ~/.ssh/<keyname> centos@<aws_public_dns>
 ```
 
 Or, set up your ssh [config](https://linux.die.net/man/5/ssh_config) file.
 
 ```
 Host ec2dev
-  Hostname <hostname>
+  Hostname <aws_public_dns>
   User centos
   IdentityFile /Users/<user>/.ssh/<user>.pem
   ForwardX11 yes
@@ -154,7 +154,7 @@ For more details, see:
       * Device: /dev/sdb  - this is important.  Userdata will look for this device.
       * Size: 20GB
       * Volume Type: General Purpose SSD
-      * Delete On Termincation: Check
+      * Delete On Termination: Check
 1. Select "Add Tags"
    * Add Tags
       * Name: `<your name>` Dev
@@ -176,7 +176,7 @@ After the instance launches, ssh to it:
 #### MAC
 
 ```
-ssh -vv -i <key> centos@<hostname>
+ssh -vv -i <key> centos@<aws_public_dns>
 ```
 
 Tail /var/log/cloud-init-output.log and make sure that it completes successfully
