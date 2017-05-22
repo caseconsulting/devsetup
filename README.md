@@ -53,7 +53,7 @@ If 'Intern Dev SG' exists, then skip to next section
 If the Security Group does exist, add the CIDR for your laptop
 
 
-* Select 'Intern Dev Security Group' button
+* Select 'Intern Dev SG' button
   * Add Security group rules (do NOT delete any others!)
     * Inbound:
       * SSH - TCP -   22 - Custom IP (<CIDR Range for your laptop>)
